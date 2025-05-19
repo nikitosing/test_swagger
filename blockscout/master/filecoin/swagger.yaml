@@ -239,6 +239,19 @@ components:
       type: string
       x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.FloatStringNullable
       x-validate:
+    ForbiddenResponse:
+      description: Response returned when the user is not authorized to access the resource
+      properties:
+        message:
+          description: Error message indicating the user is not authorized to access the resource
+          example: Restricted access
+          type: string
+          x-struct:
+          x-validate:
+      title: ForbiddenResponse
+      type: object
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.ErrorResponses.ForbiddenResponse
+      x-validate:
     Implementation:
       description: Proxy smart contract implementation
       properties:
@@ -532,6 +545,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/AddressResponse'
           description: Address response
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenResponse'
+          description: Forbidden
         422:
           content:
             application/json:
@@ -571,6 +590,6 @@ paths:
     get: ok
 security: []
 servers:
-  - url: http://localhost
+  - url: http://localhost/api
     variables: {}
 tags: []
