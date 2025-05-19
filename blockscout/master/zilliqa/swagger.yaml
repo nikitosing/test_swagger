@@ -1,0 +1,527 @@
+---
+components:
+  responses: {}
+  schemas:
+    Address:
+      description: Address
+      properties:
+        ens_domain_name:
+          description: ENS domain name associated with the address
+          nullable: true
+          type: string
+          x-struct:
+          x-validate:
+        hash:
+          $ref: '#/components/schemas/AddressHash'
+        implementations:
+          description: Implementations linked with the contract
+          items:
+            $ref: '#/components/schemas/Implementation'
+          type: array
+          x-struct:
+          x-validate:
+        is_contract:
+          description: Has address contract code?
+          nullable: true
+          type: boolean
+          x-struct:
+          x-validate:
+        is_scam:
+          description: Has address scam badge?
+          nullable: false
+          type: boolean
+          x-struct:
+          x-validate:
+        is_verified:
+          description: Has address associated source code?
+          nullable: false
+          type: boolean
+          x-struct:
+          x-validate:
+        metadata:
+          allOf:
+            - $ref: '#/components/schemas/Metadata'
+          nullable: true
+          x-struct:
+          x-validate:
+        name:
+          description: Name associated with the address
+          nullable: true
+          type: string
+          x-struct:
+          x-validate:
+        private_tags:
+          description: Private tags associated with the address
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+          x-struct:
+          x-validate:
+        proxy_type:
+          $ref: '#/components/schemas/ProxyType'
+        public_tags:
+          description: Public tags associated with the address
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+          x-struct:
+          x-validate:
+        watchlist_names:
+          description: Watch list name associated with the address
+          items:
+            $ref: '#/components/schemas/WatchlistName'
+          type: array
+          x-struct:
+          x-validate:
+      required:
+        - hash
+        - is_contract
+        - name
+        - is_scam
+        - proxy_type
+        - implementations
+        - is_verified
+        - ens_domain_name
+        - metadata
+        - private_tags
+        - watchlist_names
+        - public_tags
+      title: Address
+      type: object
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.Address
+      x-validate:
+    AddressHash:
+      nullable: false
+      pattern: ^0x([A-Fa-f0-9]{40})$
+      title: AddressHash
+      type: string
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.AddressHash
+      x-validate:
+    AddressHashNullable:
+      nullable: true
+      pattern: ^0x([A-Fa-f0-9]{40})$
+      title: AddressHashNullable
+      type: string
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.AddressHashNullable
+      x-validate:
+    AddressResponse:
+      allOf:
+        - $ref: '#/components/schemas/Address'
+        - properties:
+            block_number_balance_updated_at:
+              minimum: 0
+              nullable: true
+              type: integer
+              x-struct:
+              x-validate:
+            coin_balance:
+              $ref: '#/components/schemas/IntegerStringNullable'
+            creation_transaction_hash:
+              $ref: '#/components/schemas/TransactionHashNullable'
+            creator_address_hash:
+              $ref: '#/components/schemas/AddressHashNullable'
+            exchange_rate:
+              $ref: '#/components/schemas/FloatStringNullable'
+            has_beacon_chain_withdrawals:
+              nullable: false
+              type: boolean
+              x-struct:
+              x-validate:
+            has_decompiled_code:
+              nullable: false
+              type: boolean
+              x-struct:
+              x-validate:
+            has_logs:
+              nullable: false
+              type: boolean
+              x-struct:
+              x-validate:
+            has_token_transfers:
+              nullable: false
+              type: boolean
+              x-struct:
+              x-validate:
+            has_tokens:
+              nullable: false
+              type: boolean
+              x-struct:
+              x-validate:
+            has_validated_blocks:
+              nullable: false
+              type: boolean
+              x-struct:
+              x-validate:
+            is_scilla_contract:
+              nullable: false
+              type: boolean
+              x-struct:
+              x-validate:
+            token:
+              allOf:
+                - $ref: '#/components/schemas/Token'
+              nullable: true
+              x-struct:
+              x-validate:
+            watchlist_address_id:
+              nullable: true
+              type: integer
+              x-struct:
+              x-validate:
+          required:
+            - creator_address_hash
+            - creation_transaction_hash
+            - token
+            - coin_balance
+            - exchange_rate
+            - block_number_balance_updated_at
+            - has_decompiled_code
+            - has_validated_blocks
+            - has_logs
+            - has_tokens
+            - has_token_transfers
+            - watchlist_address_id
+            - has_beacon_chain_withdrawals
+          type: object
+          x-struct:
+          x-validate:
+      description: Address response
+      title: AddressResponse
+      type: object
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.Address.Response
+      x-validate:
+    FloatStringNullable:
+      nullable: true
+      pattern: ^([1-9][0-9]*|0)(\.[0-9]+)?$
+      title: FloatStringNullable
+      type: string
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.FloatStringNullable
+      x-validate:
+    Implementation:
+      description: Proxy smart contract implementation
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressHash'
+        name:
+          nullable: true
+          type: string
+          x-struct:
+          x-validate:
+      required:
+        - address
+        - name
+      title: Implementation
+      type: object
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.Implementation
+      x-validate:
+    IntegerStringNullable:
+      nullable: true
+      pattern: ^([1-9][0-9]*|0)$
+      title: IntegerStringNullable
+      type: string
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.IntegerStringNullable
+      x-validate:
+    JsonErrorResponse:
+      properties:
+        errors:
+          items:
+            properties:
+              detail:
+                example: null value where string expected
+                type: string
+                x-struct:
+                x-validate:
+              source:
+                properties:
+                  pointer:
+                    example: /data/attributes/petName
+                    type: string
+                    x-struct:
+                    x-validate:
+                required:
+                  - pointer
+                type: object
+                x-struct:
+                x-validate:
+              title:
+                example: Invalid value
+                type: string
+                x-struct:
+                x-validate:
+            required:
+              - title
+              - source
+              - detail
+            type: object
+            x-struct:
+            x-validate:
+          type: array
+          x-struct:
+          x-validate:
+      required:
+        - errors
+      title: JsonErrorResponse
+      type: object
+      x-struct: Elixir.OpenApiSpex.JsonErrorResponse
+      x-validate:
+    Metadata:
+      description: Metadata struct
+      properties:
+        tags:
+          description: Metadata tags linked with the address
+          items:
+            $ref: '#/components/schemas/MetadataTag'
+          type: array
+          x-struct:
+          x-validate:
+      required:
+        - tags
+      title: Metadata
+      type: object
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.Proxy.Metadata
+      x-validate:
+    MetadataTag:
+      description: Metadata tag struct
+      properties:
+        meta:
+          nullable: false
+          type: object
+          x-struct:
+          x-validate:
+        name:
+          nullable: false
+          type: string
+          x-struct:
+          x-validate:
+        ordinal:
+          nullable: false
+          type: string
+          x-struct:
+          x-validate:
+        slug:
+          nullable: false
+          type: string
+          x-struct:
+          x-validate:
+        tagType:
+          nullable: false
+          type: string
+          x-struct:
+          x-validate:
+      required:
+        - slug
+        - name
+        - tagType
+        - ordinal
+        - meta
+      title: MetadataTag
+      type: object
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.Proxy.MetadataTag
+      x-validate:
+    ProxyType:
+      enum:
+        - eip1167
+        - eip1967
+        - eip1822
+        - eip930
+        - master_copy
+        - basic_implementation
+        - basic_get_implementation
+        - comptroller
+        - eip2535
+        - clone_with_immutable_arguments
+        - eip7702
+        - resolved_delegate_proxy
+        - erc7760
+        - unknown
+      nullable: true
+      title: ProxyType
+      type: string
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.ProxyType
+      x-validate:
+    Tag:
+      description: Address tag struct
+      properties:
+        address_hash:
+          $ref: '#/components/schemas/AddressHash'
+        display_name:
+          nullable: false
+          type: string
+          x-struct:
+          x-validate:
+        label:
+          nullable: false
+          type: string
+          x-struct:
+          x-validate:
+      required:
+        - address_hash
+        - display_name
+        - label
+      title: Tag
+      type: object
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.Tag
+      x-validate:
+    Token:
+      description: Token struct
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressHash'
+        circulating_market_cap:
+          $ref: '#/components/schemas/FloatStringNullable'
+        decimals:
+          $ref: '#/components/schemas/IntegerStringNullable'
+        exchange_rate:
+          $ref: '#/components/schemas/FloatStringNullable'
+        holders:
+          $ref: '#/components/schemas/IntegerStringNullable'
+        icon_url:
+          $ref: '#/components/schemas/URLNullable'
+        is_bridged:
+          nullable: false
+          type: boolean
+          x-struct:
+          x-validate:
+        name:
+          nullable: false
+          type: string
+          x-struct:
+          x-validate:
+        symbol:
+          nullable: false
+          type: string
+          x-struct:
+          x-validate:
+        total_supply:
+          $ref: '#/components/schemas/IntegerStringNullable'
+        type:
+          enum:
+            - ERC-20
+            - ERC-721
+            - ERC-1155
+            - ERC-404
+          nullable: true
+          type: string
+          x-struct:
+          x-validate:
+        volume_24h:
+          $ref: '#/components/schemas/FloatStringNullable'
+      required:
+        - address
+        - symbol
+        - name
+        - decimals
+        - type
+        - holders
+        - exchange_rate
+        - volume_24h
+        - total_supply
+        - icon_url
+        - circulating_market_cap
+      title: Token
+      type: object
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.Token
+      x-validate:
+    TransactionHashNullable:
+      nullable: true
+      pattern: ^0x([A-Fa-f0-9]{64})$
+      title: TransactionHashNullable
+      type: string
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.TransactionHashNullable
+      x-validate:
+    URLNullable:
+      example: https://example.com
+      nullable: true
+      pattern: /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
+      title: URLNullable
+      type: string
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.URLNullable
+      x-validate:
+    WatchlistName:
+      description: Watch list name struct
+      properties:
+        display_name:
+          nullable: false
+          type: string
+          x-struct:
+          x-validate:
+        label:
+          nullable: false
+          type: string
+          x-struct:
+          x-validate:
+      required:
+        - display_name
+        - label
+      title: WatchlistName
+      type: object
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.WatchlistName
+      x-validate:
+info:
+  title: Blockscout
+  version: 8.1.0
+openapi: 3.0.0
+paths:
+  /v2/addresses:
+    get: ok
+  /v2/addresses/{address_hash_param}:
+    get:
+      callbacks: {}
+      description: Returns detailed information about address
+      operationId: BlockScoutWeb.API.V2.AddressController.address
+      parameters:
+        - description: ''
+          in: path
+          name: address_hash_param
+          required: true
+          schema:
+            $ref: '#/components/schemas/AddressHash'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressResponse'
+          description: Address response
+        422:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonErrorResponse'
+          description: Unprocessable Entity
+      summary: Get address details
+      tags:
+        - addresses
+  /v2/addresses/{address_hash_param}/blocks-validated:
+    get: ok
+  /v2/addresses/{address_hash_param}/coin-balance-history:
+    get: ok
+  /v2/addresses/{address_hash_param}/coin-balance-history-by-day:
+    get: ok
+  /v2/addresses/{address_hash_param}/counters:
+    get: ok
+  /v2/addresses/{address_hash_param}/internal-transactions:
+    get: ok
+  /v2/addresses/{address_hash_param}/logs:
+    get: ok
+  /v2/addresses/{address_hash_param}/nft:
+    get: ok
+  /v2/addresses/{address_hash_param}/nft/collections:
+    get: ok
+  /v2/addresses/{address_hash_param}/tabs-counters:
+    get: ok
+  /v2/addresses/{address_hash_param}/token-balances:
+    get: ok
+  /v2/addresses/{address_hash_param}/token-transfers:
+    get: ok
+  /v2/addresses/{address_hash_param}/tokens:
+    get: ok
+  /v2/addresses/{address_hash_param}/transactions:
+    get: ok
+  /v2/addresses/{address_hash_param}/withdrawals:
+    get: ok
+security: []
+servers:
+  - url: http://localhost
+    variables: {}
+tags: []
