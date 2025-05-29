@@ -1913,7 +1913,7 @@ components:
             type: integer
             x-struct:
             x-validate:
-          maxLength: 2
+          maxItems: 2
           type: array
           x-struct:
           x-validate:
