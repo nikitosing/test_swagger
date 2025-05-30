@@ -230,6 +230,12 @@ components:
       type: string
       x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.Token.Type
       x-validate:
+    NullString:
+      pattern: ^null$
+      title: NullString
+      type: string
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.NullString
+      x-validate:
     Metadata:
       description: Metadata struct
       properties:
@@ -672,6 +678,12 @@ components:
       title: AddressListPaginatedResponse
       type: object
       x-struct:
+      x-validate:
+    FloatString:
+      pattern: ^([1-9][0-9]*|0)(\.[0-9]+)?$
+      title: FloatString
+      type: string
+      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.FloatString
       x-validate:
     FullHashNullable:
       nullable: true
@@ -2110,6 +2122,7 @@ paths:
                 x-struct:
                 x-validate:
               - $ref: '#/components/schemas/EmptyString'
+              - $ref: '#/components/schemas/NullString'
             x-struct:
             x-validate:
       responses:
@@ -2243,17 +2256,12 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/AddressHash'
-        - allowEmptyValue: true
-          description: Block number for paging
+        - description: Block number for paging
           in: query
           name: block_number
           required: false
           schema:
-            anyOf:
-              - type: integer
-                x-struct:
-                x-validate:
-              - $ref: '#/components/schemas/EmptyString'
+            type: integer
             x-struct:
             x-validate:
         - allowEmptyValue: true
@@ -2339,17 +2347,12 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/AddressHash'
-        - allowEmptyValue: true
-          description: Block number for paging
+        - description: Block number for paging
           in: query
           name: block_number
           required: false
           schema:
-            anyOf:
-              - type: integer
-                x-struct:
-                x-validate:
-              - $ref: '#/components/schemas/EmptyString'
+            type: integer
             x-struct:
             x-validate:
         - allowEmptyValue: true
@@ -2564,30 +2567,20 @@ paths:
             type: string
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Block number for paging
+        - description: Block number for paging
           in: query
           name: block_number
           required: false
           schema:
-            anyOf:
-              - type: integer
-                x-struct:
-                x-validate:
-              - $ref: '#/components/schemas/EmptyString'
+            type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Transaction index for paging
+        - description: Transaction index for paging
           in: query
           name: index
           required: false
           schema:
-            anyOf:
-              - type: integer
-                x-struct:
-                x-validate:
-              - $ref: '#/components/schemas/EmptyString'
+            type: integer
             x-struct:
             x-validate:
         - allowEmptyValue: true
@@ -2601,8 +2594,7 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Transaction index for paging
+        - description: Transaction index for paging
           in: query
           name: transaction_index
           required: false
@@ -2690,30 +2682,20 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/HexString'
-        - allowEmptyValue: true
-          description: Block number for paging
+        - description: Block number for paging
           in: query
           name: block_number
           required: false
           schema:
-            anyOf:
-              - type: integer
-                x-struct:
-                x-validate:
-              - $ref: '#/components/schemas/EmptyString'
+            type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Transaction index for paging
+        - description: Transaction index for paging
           in: query
           name: index
           required: false
           schema:
-            anyOf:
-              - type: integer
-                x-struct:
-                x-validate:
-              - $ref: '#/components/schemas/EmptyString'
+            type: integer
             x-struct:
             x-validate:
         - allowEmptyValue: true
@@ -2811,8 +2793,12 @@ paths:
           name: type
           required: false
           schema:
-            pattern: ^(ERC-721|ERC-1155|ERC-404)(,(ERC-721|ERC-1155|ERC-404))*$
-            type: string
+            anyOf:
+              - $ref: '#/components/schemas/EmptyString'
+              - pattern: ^(ERC-721|ERC-1155|ERC-404)(,(ERC-721|ERC-1155|ERC-404))*$
+                type: string
+                x-struct:
+                x-validate:
             x-struct:
             x-validate:
         - allowEmptyValue: true
@@ -2932,8 +2918,12 @@ paths:
           name: type
           required: false
           schema:
-            pattern: ^(ERC-721|ERC-1155|ERC-404)(,(ERC-721|ERC-1155|ERC-404))*$
-            type: string
+            anyOf:
+              - $ref: '#/components/schemas/EmptyString'
+              - pattern: ^(ERC-721|ERC-1155|ERC-404)(,(ERC-721|ERC-1155|ERC-404))*$
+                type: string
+                x-struct:
+                x-validate:
             x-struct:
             x-validate:
         - allowEmptyValue: true
@@ -3164,8 +3154,12 @@ paths:
           name: type
           required: false
           schema:
-            pattern: ^(ERC-20|ERC-721|ERC-1155|ERC-404)(,(ERC-20|ERC-721|ERC-1155|ERC-404))*$
-            type: string
+            anyOf:
+              - $ref: '#/components/schemas/EmptyString'
+              - pattern: ^(ERC-20|ERC-721|ERC-1155|ERC-404)(,(ERC-20|ERC-721|ERC-1155|ERC-404))*$
+                type: string
+                x-struct:
+                x-validate:
             x-struct:
             x-validate:
         - description: Filter token transfers by token contract address.
@@ -3174,30 +3168,20 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/AddressHash'
-        - allowEmptyValue: true
-          description: Block number for paging
+        - description: Block number for paging
           in: query
           name: block_number
           required: false
           schema:
-            anyOf:
-              - type: integer
-                x-struct:
-                x-validate:
-              - $ref: '#/components/schemas/EmptyString'
+            type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Transaction index for paging
+        - description: Transaction index for paging
           in: query
           name: index
           required: false
           schema:
-            anyOf:
-              - type: integer
-                x-struct:
-                x-validate:
-              - $ref: '#/components/schemas/EmptyString'
+            type: integer
             x-struct:
             x-validate:
         - allowEmptyValue: true
@@ -3328,17 +3312,25 @@ paths:
           name: type
           required: false
           schema:
-            pattern: ^(ERC-20|ERC-721|ERC-1155|ERC-404)(,(ERC-20|ERC-721|ERC-1155|ERC-404))*$
-            type: string
+            anyOf:
+              - $ref: '#/components/schemas/EmptyString'
+              - pattern: ^(ERC-20|ERC-721|ERC-1155|ERC-404)(,(ERC-20|ERC-721|ERC-1155|ERC-404))*$
+                type: string
+                x-struct:
+                x-validate:
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Fiat value for paging
+        - description: Fiat value for paging
           in: query
           name: fiat_value
           required: false
           schema:
-            $ref: '#/components/schemas/FloatStringNullable'
+            anyOf:
+              - $ref: '#/components/schemas/FloatString'
+              - $ref: '#/components/schemas/EmptyString'
+              - $ref: '#/components/schemas/NullString'
+            x-struct:
+            x-validate:
         - allowEmptyValue: true
           description: ID for paging
           in: query
@@ -3487,8 +3479,7 @@ paths:
             type: string
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Block number for paging
+        - description: Block number for paging
           in: query
           name: block_number
           required: false
@@ -3498,10 +3489,10 @@ paths:
                 x-struct:
                 x-validate:
               - $ref: '#/components/schemas/EmptyString'
+              - $ref: '#/components/schemas/NullString'
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Transaction index for paging
+        - description: Transaction index for paging
           in: query
           name: index
           required: false
@@ -3511,6 +3502,7 @@ paths:
                 x-struct:
                 x-validate:
               - $ref: '#/components/schemas/EmptyString'
+              - $ref: '#/components/schemas/NullString'
             x-struct:
             x-validate:
         - description: Inserted at timestamp for paging (ISO8601)
@@ -3630,17 +3622,12 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/AddressHash'
-        - allowEmptyValue: true
-          description: Transaction index for paging
+        - description: Transaction index for paging
           in: query
           name: index
           required: false
           schema:
-            anyOf:
-              - type: integer
-                x-struct:
-                x-validate:
-              - $ref: '#/components/schemas/EmptyString'
+            type: integer
             x-struct:
             x-validate:
         - allowEmptyValue: true
