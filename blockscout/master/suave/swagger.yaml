@@ -401,14 +401,6 @@ components:
       type: object
       x-struct:
       x-validate:
-    URLWithIPFSNullable:
-      example: https://example.com
-      format: uri
-      nullable: true
-      title: URLWithIPFSNullable
-      type: string
-      x-struct: Elixir.BlockScoutWeb.Schemas.API.V2.General.URLWithIPFSNullable
-      x-validate:
     AddressTransactionsPaginatedResponse:
       nullable: false
       properties:
@@ -770,17 +762,16 @@ components:
         rewards:
           items:
             properties:
-              amount:
+              reward:
                 $ref: '#/components/schemas/IntegerString'
-              reward_type:
+              type:
                 nullable: false
                 type: string
                 x-struct:
                 x-validate:
             required:
-              - reward_type
-              - address
-              - amount
+              - type
+              - reward
             type: object
             x-struct:
             x-validate:
@@ -896,13 +887,13 @@ components:
     TokenInstance:
       properties:
         animation_url:
-          $ref: '#/components/schemas/URLWithIPFSNullable'
+          $ref: '#/components/schemas/URLNullable'
         external_app_url:
-          $ref: '#/components/schemas/URLWithIPFSNullable'
+          $ref: '#/components/schemas/URLNullable'
         id:
           $ref: '#/components/schemas/IntegerString'
         image_url:
-          $ref: '#/components/schemas/URLWithIPFSNullable'
+          $ref: '#/components/schemas/URLNullable'
         is_unique:
           nullable: true
           type: boolean
@@ -916,7 +907,7 @@ components:
           x-struct:
           x-validate:
         media_url:
-          $ref: '#/components/schemas/URLWithIPFSNullable'
+          $ref: '#/components/schemas/URLNullable'
         metadata:
           example:
             description: Test
@@ -2106,8 +2097,7 @@ paths:
             type: string
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Fetched coin balance for paging
+        - description: Fetched coin balance for paging
           in: query
           name: fetched_coin_balance
           required: false
@@ -2119,8 +2109,7 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/AddressHash'
-        - allowEmptyValue: true
-          description: Number of items returned per page
+        - description: Number of items returned per page
           in: query
           name: items_count
           required: false
@@ -2130,8 +2119,7 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Transactions count for paging
+        - description: Transactions count for paging
           in: query
           name: transactions_count
           required: false
@@ -2283,8 +2271,7 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Number of items returned per page
+        - description: Number of items returned per page
           in: query
           name: items_count
           required: false
@@ -2374,8 +2361,7 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Number of items returned per page
+        - description: Number of items returned per page
           in: query
           name: items_count
           required: false
@@ -2602,8 +2588,7 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Number of items returned per page
+        - description: Number of items returned per page
           in: query
           name: items_count
           required: false
@@ -2717,8 +2702,7 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Number of items returned per page
+        - description: Number of items returned per page
           in: query
           name: items_count
           required: false
@@ -2820,8 +2804,7 @@ paths:
                 x-validate:
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Number of items returned per page
+        - description: Number of items returned per page
           in: query
           name: items_count
           required: false
@@ -2831,22 +2814,19 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Token contract address hash for paging
+        - description: Token contract address hash for paging
           in: query
           name: token_contract_address_hash
           required: false
           schema:
             $ref: '#/components/schemas/AddressHash'
-        - allowEmptyValue: true
-          description: Token ID for paging
+        - description: Token ID for paging
           in: query
           name: token_id
           required: false
           schema:
             $ref: '#/components/schemas/IntegerStringNullable'
-        - allowEmptyValue: true
-          description: Token type for paging
+        - description: Token type for paging
           in: query
           name: token_type
           required: false
@@ -2945,8 +2925,7 @@ paths:
                 x-validate:
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Number of items returned per page
+        - description: Number of items returned per page
           in: query
           name: items_count
           required: false
@@ -2956,15 +2935,13 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Token contract address hash for paging
+        - description: Token contract address hash for paging
           in: query
           name: token_contract_address_hash
           required: false
           schema:
             $ref: '#/components/schemas/AddressHash'
-        - allowEmptyValue: true
-          description: Token type for paging
+        - description: Token type for paging
           in: query
           name: token_type
           required: false
@@ -3203,8 +3180,7 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Number of items returned per page
+        - description: Number of items returned per page
           in: query
           name: items_count
           required: false
@@ -3214,8 +3190,7 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Batch log index for paging
+        - description: Batch log index for paging
           in: query
           name: batch_log_index
           required: false
@@ -3223,22 +3198,19 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Batch block hash for paging
+        - description: Batch block hash for paging
           in: query
           name: batch_block_hash
           required: false
           schema:
             $ref: '#/components/schemas/FullHash'
-        - allowEmptyValue: true
-          description: Batch transaction hash for paging
+        - description: Batch transaction hash for paging
           in: query
           name: batch_transaction_hash
           required: false
           schema:
             $ref: '#/components/schemas/FullHash'
-        - allowEmptyValue: true
-          description: Index in batch for paging
+        - description: Index in batch for paging
           in: query
           name: index_in_batch
           required: false
@@ -3350,8 +3322,7 @@ paths:
               - $ref: '#/components/schemas/NullString'
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: ID for paging
+        - description: ID for paging
           in: query
           name: id
           required: false
@@ -3359,8 +3330,7 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Number of items returned per page
+        - description: Number of items returned per page
           in: query
           name: items_count
           required: false
@@ -3370,8 +3340,7 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Transaction value for paging
+        - description: Transaction value for paging
           in: query
           name: value
           required: false
@@ -3539,22 +3508,19 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/FullHash'
-        - allowEmptyValue: true
-          description: Transaction value for paging
+        - description: Transaction value for paging
           in: query
           name: value
           required: false
           schema:
             $ref: '#/components/schemas/IntegerString'
-        - allowEmptyValue: true
-          description: Transaction fee for paging
+        - description: Transaction fee for paging
           in: query
           name: fee
           required: false
           schema:
             $ref: '#/components/schemas/IntegerString'
-        - allowEmptyValue: true
-          description: Number of items returned per page
+        - description: Number of items returned per page
           in: query
           name: items_count
           required: false
@@ -3649,8 +3615,7 @@ paths:
             type: integer
             x-struct:
             x-validate:
-        - allowEmptyValue: true
-          description: Number of items returned per page
+        - description: Number of items returned per page
           in: query
           name: items_count
           required: false
