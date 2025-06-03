@@ -1915,7 +1915,6 @@ components:
         priority_fee:
           $ref: '#/components/schemas/IntegerStringNullable'
       required:
-        - scroll
         - hash
         - result
         - status

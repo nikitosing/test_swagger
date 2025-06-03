@@ -1856,8 +1856,6 @@ components:
         priority_fee:
           $ref: '#/components/schemas/IntegerStringNullable'
       required:
-        - polygon_edge_deposit
-        - polygon_edge_withdrawal
         - hash
         - result
         - status

@@ -1863,7 +1863,6 @@ components:
         priority_fee:
           $ref: '#/components/schemas/IntegerStringNullable'
       required:
-        - zkevm_status
         - hash
         - result
         - status

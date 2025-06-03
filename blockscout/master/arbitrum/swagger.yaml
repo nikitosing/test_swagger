@@ -2058,7 +2058,6 @@ components:
         priority_fee:
           $ref: '#/components/schemas/IntegerStringNullable'
       required:
-        - arbitrum
         - hash
         - result
         - status
