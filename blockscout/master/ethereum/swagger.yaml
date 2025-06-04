@@ -716,7 +716,7 @@ components:
         blob_gas_price:
           $ref: '#/components/schemas/IntegerString'
         blob_gas_used:
-          $ref: '#/components/schemas/IntegerString'
+          $ref: '#/components/schemas/IntegerStringNullable'
         blob_transactions_count:
           nullable: false
           type: integer
@@ -735,7 +735,7 @@ components:
         difficulty:
           $ref: '#/components/schemas/IntegerString'
         excess_blob_gas:
-          $ref: '#/components/schemas/IntegerString'
+          $ref: '#/components/schemas/IntegerStringNullable'
         gas_limit:
           $ref: '#/components/schemas/IntegerString'
         gas_target_percentage:
